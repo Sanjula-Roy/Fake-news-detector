@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>AI News Result</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle at center, #0f172a, #000);
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .card {
+            width: 60%;
+            margin: auto;
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 25px rgba(0,255,255,0.3);
+        }
+
+        .real {
+            border: 2px solid #00ff9d;
+            box-shadow: 0 0 30px #00ff9d;
+            background: rgba(0,255,150,0.07);
+        }
+
+        .fake {
+            border: 2px solid #ff1e5a;
+            box-shadow: 0 0 30px #ff1e5a;
+            background: rgba(255,40,90,0.07);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 15px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #00eaff, #006eff);
+            color: black;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px #00eaff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card {{ 'real' if prediction.startswith('REAL') else 'fake' }}">
+        <h1>AI VERDICT</h1>
+        <h2>{{ prediction }}</h2>
+
+        <a href="/">🔄 Scan Another News</a>
+    </div>
+
+</body>
+</html>

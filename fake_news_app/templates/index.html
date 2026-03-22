@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>AI Fake News Detector</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle at top, #0f172a, #000);
+            color: white;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .title {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-shadow: 0 0 15px #0ff;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            margin-top: 40px;
+            padding: 40px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0,255,255,0.2);
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        label {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #0ff;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            outline: none;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        textarea {
+            height: 160px;
+            resize: none;
+        }
+
+        .btn {
+            display: block;
+            width: 50%;
+            margin: auto;
+            padding: 15px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #00eaff, #006eff);
+            color: black;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            box-shadow: 0 0 20px #00eaff;
+        }
+
+        .btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 35px #00eaff;
+        }
+
+        /* --- FUTURISTIC RESULT CARD --- */
+        .result-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .result-card {
+            width: 80%;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            animation: fadeSlide 0.7s ease-out;
+            backdrop-filter: blur(20px);
+        }
+
+        .result-card.real {
+            border: 2px solid #00ff9d;
+            box-shadow: 0 0 25px #00ff9d;
+            background: rgba(0,255,150,0.08);
+        }
+
+        .result-card.fake {
+            border: 2px solid #ff1e5a;
+            box-shadow: 0 0 25px #ff1e5a;
+            background: rgba(255,50,100,0.08);
+        }
+
+        .result-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .result-sub {
+            font-size: 1rem;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(25px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">🔷 AI FAKE NEWS DETECTOR</h1>
+
+    <div class="container">
+        <form action="/predict" method="POST">
+            <label>NEWS TITLE</label>
+            <input type="text" name="title" placeholder="Enter headline..." required>
+
+            <label>FULL NEWS CONTENT</label>
+            <textarea name="news" placeholder="Paste full article..."></textarea>
+
+            <button class="btn" type="submit">SCAN NEWS</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result-wrapper">
+            <div class="result-card {{ 'real' if prediction.startswith('REAL') else 'fake' }}">
+                <h2 class="result-title">{{ prediction }}</h2>
+                <p class="result-sub">AI credibility verdict</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
